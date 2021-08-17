@@ -1,0 +1,52 @@
+LootBot DEV Plan:
+1.  Design Document (on-going)
+2.  Spreadsheet Creation and formatting (DONE)
+3.  Fail-Safes for bot commands and Try/Except commands
+    -Add Try/Except Statements and if/then 
+    -Clean Up Code (DONE)
+    -Remove Extra imports (DONE)
+    -#Comments
+    -Test
+    -Style guidelines
+4.  Add Bot functionality
+    -Add funds/items
+    -Remove funds/items
+    -Transfer / Trade funds/items
+    -Add/Remove player
+    -Update character name/info
+    -Funds conversion
+    -assign user to character functionality
+    -Bug Report
+    -Feature Feedback
+    -GM Lock ability
+5.  Alpha Check
+6.  Server Implementation
+7.  Beta invites.
+
+
+
+
+
+
+
+Desired LootBot features for launch:
+1. Spreadsheet creation and formatting
+2. Item tracking
+3. GM nomination and permissions
+4. Player/Discord name assignment
+5. Close and email sheet functionality
+6. Tally tracking
+7. Money conversion commands
+
+
+
+
+
+
+
+Future LootBot Stretch Goals:
+1.  Voice command
+2.  Different templates for different games
+3. Auto Convert Function
+4. Game Settings
+5. Individual Sheets as an inventory system
