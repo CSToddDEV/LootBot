@@ -15,11 +15,13 @@
 
                              ***LootBot README***
 
+
 Overview:
 
     LootBot is a python based Discord bot for tracking inventory in 5e games.
     Developed in an open-source setting, it is a collaborative ever growing
-    project overseen by Calvin Todd.
+    project overseen by Calvin Todd.  This repository is updated and improved
+    from the LootBot_DEPRECIATED repository that is now private.
 
 
 Features:
