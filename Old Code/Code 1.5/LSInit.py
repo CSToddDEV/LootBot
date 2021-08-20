@@ -14,7 +14,7 @@ def new_loot_sheet(lsname, players):
     scope = ['https://spreadsheets.google.com/feeds',
              'https://www.googleapis.com/auth/drive']
     creds = ServiceAccountCredentials.from_json_keyfile_name(
-        'lootbot_secret.json', scope)
+        '../../lootbot_secret.json', scope)
     client = gspread.authorize(creds)
     # create LootSheet
     template = client.copy(

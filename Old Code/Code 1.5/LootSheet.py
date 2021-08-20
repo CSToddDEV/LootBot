@@ -31,7 +31,7 @@ def find_player(player):
     scope = ['https://spreadsheets.google.com/feeds',
              'https://www.googleapis.com/auth/drive']
     creds = ServiceAccountCredentials.from_json_keyfile_name(
-        'lootbot_secret.json', scope)
+        '../../lootbot_secret.json', scope)
     client = gspread.authorize(creds)
     # set open SS to sheet
     sheet = client.open('LootBot Test').sheet1
@@ -54,7 +54,7 @@ def add_money(money, player):
     scope = ['https://spreadsheets.google.com/feeds',
              'https://www.googleapis.com/auth/drive']
     creds = ServiceAccountCredentials.from_json_keyfile_name(
-        'lootbot_secret.json', scope)
+        '../../lootbot_secret.json', scope)
     client = gspread.authorize(creds)
     # set open SS to sheet
     sheet = client.open('LootBot Test').sheet1

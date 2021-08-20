@@ -2,13 +2,32 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="417ae35e-1bca-4d38-b308-e65b0bad7ddc" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DD.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Old Code/Code 1.5/DD.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LB.py" beforeDir="false" afterPath="$PROJECT_DIR$/Old Code/Code 1.5/LB.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LBTextVariables.py" beforeDir="false" afterPath="$PROJECT_DIR$/Old Code/Code 1.5/LBTextVariables.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LSInit.py" beforeDir="false" afterPath="$PROJECT_DIR$/Old Code/Code 1.5/LSInit.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LSMod.py" beforeDir="false" afterPath="$PROJECT_DIR$/Old Code/Code 1.5/LSMod.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LSPop.py" beforeDir="false" afterPath="$PROJECT_DIR$/Old Code/Code 1.5/LSPop.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LSid.py" beforeDir="false" afterPath="$PROJECT_DIR$/Old Code/Code 1.5/LSid.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LootSheet.py" beforeDir="false" afterPath="$PROJECT_DIR$/Old Code/Code 1.5/LootSheet.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.txt" beforeDir="false" afterPath="$PROJECT_DIR$/README.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserNamesForDisc.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Testing/UserNamesForDisc.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/players.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Testing/players.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+        <option value="Python Unit Test" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -22,7 +41,14 @@
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="add_unversioned_files" value="$PROJECT_DIR$/.env" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\CSTod\OneDrive\Desktop\Coding Projects\LootBot\Testing" />
+      <recent name="C:\Users\CSTod\OneDrive\Desktop\Coding Projects\LootBot\Old Code\Code 1.5" />
+    </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -68,7 +94,14 @@
       <option name="project" value="LOCAL" />
       <updated>1629233642011</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="init">
+      <created>1629234064951</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1629234064951</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
