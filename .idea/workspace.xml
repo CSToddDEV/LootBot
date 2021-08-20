@@ -2,19 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="417ae35e-1bca-4d38-b308-e65b0bad7ddc" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/tests.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DD.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Old Code/Code 1.5/DD.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LB.py" beforeDir="false" afterPath="$PROJECT_DIR$/Old Code/Code 1.5/LB.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LBTextVariables.py" beforeDir="false" afterPath="$PROJECT_DIR$/Old Code/Code 1.5/LBTextVariables.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LSInit.py" beforeDir="false" afterPath="$PROJECT_DIR$/Old Code/Code 1.5/LSInit.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LSMod.py" beforeDir="false" afterPath="$PROJECT_DIR$/Old Code/Code 1.5/LSMod.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LSPop.py" beforeDir="false" afterPath="$PROJECT_DIR$/Old Code/Code 1.5/LSPop.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LSid.py" beforeDir="false" afterPath="$PROJECT_DIR$/Old Code/Code 1.5/LSid.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LootSheet.py" beforeDir="false" afterPath="$PROJECT_DIR$/Old Code/Code 1.5/LootSheet.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.txt" beforeDir="false" afterPath="$PROJECT_DIR$/README.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserNamesForDisc.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Testing/UserNamesForDisc.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/players.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Testing/players.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/Testing/tests.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -101,11 +91,26 @@
       <option name="project" value="LOCAL" />
       <updated>1629234064951</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Commit 8.20.19 - Continued re-organizing project file structure so we can begin rewriting LootBot from ground up in a Object Oriented style with a modified Continuous Integration process.">
+      <created>1629487903256</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1629487903256</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Commit 8.20.19 - Continued re-organizing project file structure so we can begin rewriting LootBot from ground up in a Object Oriented style with a modified Continuous Integration process.">
+      <created>1629488002586</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1629488002586</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="init" />
-    <option name="LAST_COMMIT_MESSAGE" value="init" />
+    <MESSAGE value="Commit 8.20.19 - Continued re-organizing project file structure so we can begin rewriting LootBot from ground up in a Object Oriented style with a modified Continuous Integration process." />
+    <option name="LAST_COMMIT_MESSAGE" value="Commit 8.20.19 - Continued re-organizing project file structure so we can begin rewriting LootBot from ground up in a Object Oriented style with a modified Continuous Integration process." />
   </component>
 </project>
