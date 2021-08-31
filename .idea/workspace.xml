@@ -1,8 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="417ae35e-1bca-4d38-b308-e65b0bad7ddc" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/lb.py" beforeDir="false" afterPath="$PROJECT_DIR$/lb.py" afterDir="false" />
+    <list default="true" id="417ae35e-1bca-4d38-b308-e65b0bad7ddc" name="Default Changelist" comment="Commit 8.20.19 - Continued re-organizing project file structure so we can begin rewriting LootBot from ground up in a Object Oriented style with a modified Continuous Integration process.">
+      <change beforePath="$PROJECT_DIR$/.github/workflows/python-app.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/python-app.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Old Code/Code 1.5/DD.txt" beforeDir="false" afterPath="$PROJECT_DIR$/old_code/Code 1.5/DD.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Old Code/Code 1.5/LB.py" beforeDir="false" afterPath="$PROJECT_DIR$/old_code/Code 1.5/LB.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Old Code/Code 1.5/LBTextVariables.py" beforeDir="false" afterPath="$PROJECT_DIR$/old_code/Code 1.5/LBTextVariables.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Old Code/Code 1.5/LSInit.py" beforeDir="false" afterPath="$PROJECT_DIR$/old_code/Code 1.5/LSInit.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Old Code/Code 1.5/LSMod.py" beforeDir="false" afterPath="$PROJECT_DIR$/old_code/Code 1.5/LSMod.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Old Code/Code 1.5/LSPop.py" beforeDir="false" afterPath="$PROJECT_DIR$/old_code/Code 1.5/LSPop.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Old Code/Code 1.5/LSid.py" beforeDir="false" afterPath="$PROJECT_DIR$/old_code/Code 1.5/LSid.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Old Code/Code 1.5/LootSheet.py" beforeDir="false" afterPath="$PROJECT_DIR$/old_code/Code 1.5/LootSheet.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Old Code/OLD_SCRIPTS/Bot.py" beforeDir="false" afterPath="$PROJECT_DIR$/old_code/OLD_SCRIPTS/Bot.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Old Code/OLD_SCRIPTS/GSTest.py" beforeDir="false" afterPath="$PROJECT_DIR$/old_code/OLD_SCRIPTS/GSTest.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Old Code/OLD_SCRIPTS/LSBegin.py" beforeDir="false" afterPath="$PROJECT_DIR$/old_code/OLD_SCRIPTS/LSBegin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Old Code/OLD_SCRIPTS/LSModOUTDATED.py" beforeDir="false" afterPath="$PROJECT_DIR$/old_code/OLD_SCRIPTS/LSModOUTDATED.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Old Code/OLD_SCRIPTS/alphabetizeDictFunction.py" beforeDir="false" afterPath="$PROJECT_DIR$/old_code/OLD_SCRIPTS/alphabetizeDictFunction.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Old Code/OLD_SCRIPTS/bot2.py" beforeDir="false" afterPath="$PROJECT_DIR$/old_code/OLD_SCRIPTS/bot2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Old Code/OLD_SCRIPTS/bot3.py" beforeDir="false" afterPath="$PROJECT_DIR$/old_code/OLD_SCRIPTS/bot3.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Old Code/OLD_SCRIPTS/err.log" beforeDir="false" afterPath="$PROJECT_DIR$/old_code/OLD_SCRIPTS/err.log" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,6 +35,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="new_main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1ws1NMWhW3CTnoLQiA3htYYma4K" />
@@ -141,7 +163,20 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
   <component name="VcsManagerConfiguration">
+    <option name="LOCAL_CHANGES_DETAILS_PREVIEW_SHOWN" value="false" />
     <MESSAGE value="init" />
     <MESSAGE value="Commit 8.20.19 - Continued re-organizing project file structure so we can begin rewriting LootBot from ground up in a Object Oriented style with a modified Continuous Integration process." />
     <option name="LAST_COMMIT_MESSAGE" value="Commit 8.20.19 - Continued re-organizing project file structure so we can begin rewriting LootBot from ground up in a Object Oriented style with a modified Continuous Integration process." />
