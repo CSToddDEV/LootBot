@@ -6,8 +6,12 @@ name: Python application
 on:
   push:
     branches: [ main ]
+    paths-ignore:
+      - 'Old Code/**'
   pull_request:
     branches: [ main ]
+    paths-ignore:
+      - 'Old Code/**'
 
 jobs:
   build:
