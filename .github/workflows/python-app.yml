@@ -40,4 +40,4 @@ jobs:
     - name: Test with pytest
       run: |
         chmod +x ./testing/tests.py
-        testing/tests.py
+        python testing/tests.py
