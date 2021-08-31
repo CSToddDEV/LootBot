@@ -7,7 +7,3 @@ def test():
 
 def test2():
     return
-
-
-def test3():
-    return
