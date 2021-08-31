@@ -6,7 +6,7 @@ name: LootBot
 on:
   push:
     paths-ignore:
-      - '**/LSid.py'
+      - '**/old_code/**'
     branches:  
       - main
   pull_request:
@@ -39,4 +39,4 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics --exclude='./Old Code/**'
     - name: Test with pytest
       run: |
-        tests.py
+        testing/tests.py
