@@ -5,13 +5,15 @@ name: Python application
 
 on:
   push:
-    branches: [ main ]
     paths-ignore:
-      - './Old Code/**'
+      - 'Old Code/**'
+    branches:  
+      - main
   pull_request:
-    branches: [ main ]
     paths-ignore:
-      - './Old Code/**'
+      - 'Old Code/**'
+    branches:
+      - main 
 
 jobs:
   build:
