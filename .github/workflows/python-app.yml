@@ -39,5 +39,5 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics --exclude='./Old Code/**'
     - name: Test with pytest
       run: |
-        chmod +x /testing/test.py
+        chmod +x /testing/tests.py
         testing/tests.py
