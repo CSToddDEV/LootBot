@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="417ae35e-1bca-4d38-b308-e65b0bad7ddc" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lb.py" beforeDir="false" afterPath="$PROJECT_DIR$/lb.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,6 +21,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1ws1NMWhW3CTnoLQiA3htYYma4K" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -32,6 +33,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="add_unversioned_files" value="$PROJECT_DIR$/.env" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -47,7 +49,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1629232441054</updated>
-      <workItem from="1630370697452" duration="2571000" />
+      <workItem from="1630370697452" duration="3285000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <created>1629232567502</created>
@@ -119,7 +121,21 @@
       <option name="project" value="LOCAL" />
       <updated>1629488601939</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Commit 8.20.19 - Continued re-organizing project file structure so we can begin rewriting LootBot from ground up in a Object Oriented style with a modified Continuous Integration process.">
+      <created>1630373559052</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1630373559052</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Commit 8.20.19 - Continued re-organizing project file structure so we can begin rewriting LootBot from ground up in a Object Oriented style with a modified Continuous Integration process.">
+      <created>1630373617604</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1630373617604</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
