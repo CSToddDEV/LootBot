@@ -6,7 +6,7 @@ name: LootBot
 on:
   push:
     paths-ignore:
-      - '**/old_code/**'
+      - '**/LSid.py'
     branches:  
       - main
   pull_request:
