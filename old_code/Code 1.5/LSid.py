@@ -1,5 +1,3 @@
-google
-
 def get_LS_id(template):
     lsid = str(template)
     lsid = lsid.split(':')
