@@ -12,6 +12,3 @@ def test2():
 def test3():
     return
 
-
-def test4():
-    return
