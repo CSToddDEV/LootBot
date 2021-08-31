@@ -1,5 +1,5 @@
 import unittest
-from null import lb
+from . import lb
 
 
 class MyTestCase(unittest.TestCase):

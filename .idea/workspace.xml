@@ -5,8 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="417ae35e-1bca-4d38-b308-e65b0bad7ddc" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testing/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/testing/tests.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,8 +16,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="Python Unit Test" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -63,7 +63,7 @@
       <option name="presentableId" value="Default" />
       <updated>1629232441054</updated>
       <workItem from="1630370697452" duration="3285000" />
-      <workItem from="1630438669676" duration="3082000" />
+      <workItem from="1630438669676" duration="3857000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <created>1629232567502</created>
@@ -240,7 +240,14 @@
       <option name="project" value="LOCAL" />
       <updated>1630441214330</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="8.31.21 - Adjusting and working on streamlining Github Workflow">
+      <created>1630441766351</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1630441766351</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
