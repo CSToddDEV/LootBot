@@ -19,7 +19,7 @@ class LootBot:
         """
         Init for LootBot.
         """
-        # Load local .env variables in to enviroment
+        # Load local .env variables in to environment
         load_dotenv()
 
         self._disc_token = os.getenv("DISCORD_TOKEN")
