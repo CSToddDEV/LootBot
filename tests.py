@@ -3,12 +3,15 @@ import lb
 
 
 class MyTestCase(unittest.TestCase):
-    def test_global_1(self):
+    def test_lb_1(self):
         """
-        Test global 1 -
-        Asserts that True equals True
+        Test lb.py 1 -
+        This test asserts that the .env variable DISCORD_TOKEN is not returning default (meaning the token has not been
+        retrieved)
         """
-        self.assertEqual(True, True)
+        test_bot = lb.LootBot()
+
+        self.assertNotEqual(test_bot.get_disc_token(), None)
 
 
 if __name__ == '__main__':

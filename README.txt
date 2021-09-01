@@ -60,3 +60,5 @@ Features:
 
 Dependencies:
     -> oauth2client
+    -> dotenv
+    -> discord
