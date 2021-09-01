@@ -1,3 +1,2 @@
-os
 dotenv
 discord.ext
