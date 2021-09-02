@@ -57,7 +57,9 @@ class LootBot:
         """
         This is a handler method
         """
-        loot_list = LootList(ctx)
+        bot = self.get_bot()
+
+        loot_list = LootList(ctx, bot)
         await loot_list.begin_lootsheet()
 
         # Return Loot List ID

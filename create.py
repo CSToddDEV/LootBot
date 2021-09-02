@@ -11,7 +11,7 @@ class LootList:
     """
     Loot List created by LootBot
     """
-    def __init__(self, ctx):
+    def __init__(self, ctx, bot):
         """
         Init for LootList
         """
@@ -20,8 +20,9 @@ class LootList:
         self._template = None
         self._ctx = ctx
         self._creator = ctx.message.author
-        self.text = t['create']
         self._loot_list_id = 666
+        self._bot = bot
+        self.text = t['create']
 
     # Get Functions
     def get_id(self):
@@ -48,6 +49,12 @@ class LootList:
         """
         return self._creator
 
+    def get_bot(self):
+        """
+        This method returns passed Bot object
+        """
+        return self._bot
+
     # Set Functions
     def set_template(self, template):
         """
@@ -68,8 +75,13 @@ class LootList:
         """
         This method begins the creation of the new LootSheet
         """
+        parent_bot = self.get_bot()
+
         # Start DM and send welcome message
         await self.start_message()
+
+        # Listen for ready signal
+        parent_bot.add_listener(self.received_message, 'on_message')
 
         # Set template
         self.set_template(self.request_template())
@@ -100,6 +112,13 @@ class LootList:
         This method requests template option from creator
         """
         return '5e'
+
+    async def received_message(self, message):
+        """
+        This method receives messages and processes them according to the message
+        """
+        if message.content.lower() == 'ready':
+
 
 
 class CreateError(Exception):
