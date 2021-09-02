@@ -62,3 +62,4 @@ Dependencies:
     -> oauth2client
     -> dotenv
     -> discord
+    -> asyncio

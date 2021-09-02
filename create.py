@@ -2,6 +2,11 @@
 # Project: LootBot - create.py
 # Description : Class for creating a new Loot List
 
+# Import Statements
+import asyncio
+from text_variables import text as t
+
+
 class LootList:
     """
     Loot List created by LootBot
@@ -11,10 +16,12 @@ class LootList:
         Init for LootList
         """
         self._created = True
-        self._loot_list_id = self.begin_lootsheet()
         self._templates = ['5e', 'starfinder']
         self._template = None
-        self._creator_ctx = ctx
+        self._ctx = ctx
+        self._creator = ctx.message.author
+        self.text = t['create']
+        self._loot_list_id = 666
 
     # Get Functions
     def get_id(self):
@@ -23,17 +30,23 @@ class LootList:
         """
         return self._loot_list_id
 
-    def get_creator_context(self):
+    def get_context(self):
         """
         This method returns the ctx for the creating command
         """
-        return self._creator_ctx
+        return self._ctx
 
     def get_available_templates(self):
         """
         This method returns all the available templates for LootBot
         """
         return self._templates
+
+    def get_creator(self):
+        """
+        This method gets the information of the creator of the LootList
+        """
+        return self._creator
 
     # Set Functions
     def set_template(self, template):
@@ -51,22 +64,34 @@ class LootList:
         else:
             self._template = template
 
-    def begin_lootsheet(self):
+    async def begin_lootsheet(self):
         """
         This method begins the creation of the new LootSheet
         """
-        ctx = self.begin_lootsheet()
+        # Start DM and send welcome message
+        await self.start_message()
 
         # Set template
-        self.set_template(self.request_template(ctx))
+        self.set_template(self.request_template())
 
         return True
 
-    def request_template(self, ctx):
+    async def start_message(self):
+        """
+        This method starts a DM with _creator and sends messages to the chat/creator with directions
+        """
+        ctx = self.get_context()
+        creator = self.get_creator()
+
+        # Send message to chat channel
+        await ctx.send(self.text['start_1'] + creator.mention)
+        await ctx.send(self.text['start_2'] + creator.mention + self.text['start_3'])
+
+    def request_template(self):
         """
         This method requests template option from creator
         """
-        pass
+        return '5e'
 
 
 class CreateError(Exception):
@@ -77,4 +102,3 @@ class CreateError(Exception):
         if function == 'set_template':
             self._message = 'Error in create.py in function: ' + function + '. [ ' + specs[0] + ' ] is not a valid\
                              template.'
-

@@ -44,19 +44,21 @@ class LootBot:
         bot = self.get_bot()
 
         # Async calls
-        @self._bot.command(name='create', description=t['lb']['create_desc'])
+        @bot.command(name='create', description=t['lb']['create_desc'])
         async def handle_create_loot_list(ctx):
             """
             This is a handler method
             """
-            self.create_loot_list(ctx)
+            await self.create_loot_list(ctx)
 
-    def create_loot_list(self, ctx):
+        bot.run(self.get_disc_token())
+
+    async def create_loot_list(self, ctx):
         """
         This is a handler method
         """
         loot_list = LootList(ctx)
+        await loot_list.begin_lootsheet()
 
         # Return Loot List ID
         return loot_list.get_id()
-
