@@ -23,7 +23,7 @@ class LootBot:
         load_dotenv()
 
         self._disc_token = os.getenv("DISCORD_TOKEN")
-        self._bot = commands.Bot(command_prefix='$$', description=t.lb.bot_desc)
+        self._bot = commands.Bot(command_prefix='$$', description=t['lb']['bot_desc'])
 
     def get_disc_token(self):
         """
@@ -44,7 +44,7 @@ class LootBot:
         bot = self.get_bot()
 
         # Async calls
-        @self._bot.command(name='create', description=t.lb.create_desc)
+        @self._bot.command(name='create', description=t['lb']['create_desc'])
         async def handle_create_loot_list(ctx):
             """
             This is a handler method
