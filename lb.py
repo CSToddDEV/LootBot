@@ -5,7 +5,7 @@
 # Imports
 import os
 from dotenv import load_dotenv
-import discord.ext as d
+from discord.ext import commands
 import text_variables as t
 from create import LootList
 
@@ -23,7 +23,7 @@ class LootBot:
         load_dotenv()
 
         self._disc_token = os.getenv("DISCORD_TOKEN")
-        self._bot = d.commands.Bot(command_prefix='$$', help_command='??', description=t.description)
+        self._bot = commands.Bot(command_prefix='$$', description=t.description)
 
         # Async calls
         @self._bot.command(name='create')
