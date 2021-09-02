@@ -87,6 +87,14 @@ class LootList:
         await ctx.send(self.text['start_1'] + creator.mention)
         await ctx.send(self.text['start_2'] + creator.mention + self.text['start_3'])
 
+        # Send message to _creator
+        channel = await creator.create_dm()
+        await channel.send(self.text['creator_1'])
+        await asyncio.sleep(2)
+        await channel.send(self.text['creator_2'])
+        await asyncio.sleep(2)
+        await channel.send(self.text['creator_3'])
+
     def request_template(self):
         """
         This method requests template option from creator
