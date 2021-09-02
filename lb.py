@@ -6,7 +6,7 @@
 import os
 from dotenv import load_dotenv
 from discord.ext import commands
-import text_variables as t
+from text_variables import text as t
 from create import LootList
 
 
@@ -23,15 +23,7 @@ class LootBot:
         load_dotenv()
 
         self._disc_token = os.getenv("DISCORD_TOKEN")
-        self._bot = commands.Bot(command_prefix='$$', description=t.description)
-
-        # Async calls
-        @self._bot.command(name='create')
-        async def create_loot_list(ctx):
-            """
-            LootBot creates a new Loot List
-            """
-            loot_list = LootList()
+        self._bot = commands.Bot(command_prefix='$$', description=t.lb.bot_desc)
 
     def get_disc_token(self):
         """
@@ -41,6 +33,30 @@ class LootBot:
 
     def get_bot(self):
         """
-        This method returns the Discord Bot object
+        This method returns the Python Discord bot object
         """
         return self._bot
+
+    def bot(self):
+        """
+        This method holds the async/await for the bot
+        """
+        bot = self.get_bot()
+
+        # Async calls
+        @self._bot.command(name='create', description=t.lb.create_desc)
+        async def handle_create_loot_list(ctx):
+            """
+            This is a handler method
+            """
+            self.create_loot_list(ctx)
+
+    def create_loot_list(self, ctx):
+        """
+        This is a handler method
+        """
+        loot_list = LootList(ctx)
+
+        # Return Loot List ID
+        return loot_list.get_id()
+

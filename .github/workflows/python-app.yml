@@ -16,7 +16,7 @@ on:
       - main 
 
 jobs:
-  build:
+  Tests:
 
     runs-on: ubuntu-latest
 
