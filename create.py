@@ -166,8 +166,14 @@ class LootList:
         """
         This method receives messages and processes them according to the message
         """
+        parent_bot = self.get_bot()
+
+        # Ensure that the bot is not the one sending the message
+        if message.author == parent_bot.user or message.channel != self.get_channel():
+            return
+
         # Step 1 - Choose a template
-        if message.content.lower() == 'ready' and self.get_started() and not self.get_template_chosen():
+        elif message.content.lower() == 'ready' and self.get_started() and not self.get_template_chosen():
             await self.request_template()
 
         # Step 2 - Confirm Template, Add Players
@@ -175,8 +181,13 @@ class LootList:
             self.set_template(message.content.lower())
             print(self._template)
 
+        # Quit
+        elif message.content.lower() == 'quit':
+            await self.quit_message()
+            parent_bot.remove_listener(self.received_message, 'on_message')
+
         # Error
-        elif message.author != self.get_bot():
+        else:
             await self.send_error()
 
     async def send_error(self):
@@ -185,6 +196,13 @@ class LootList:
         """
         channel = self.get_channel()
         await channel.send(self.text['error'])
+
+    async def quit_message(self):
+        """
+        This method returns a quit message
+        """
+        channel = self.get_channel()
+        await channel.send(self.text['quit'])
 
 
 class CreateError(Exception):

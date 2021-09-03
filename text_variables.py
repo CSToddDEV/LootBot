@@ -32,6 +32,7 @@ text = {
                    + 'Starfinder games!\n',
         'template_3': 'Please respond with \'5e\' for the 5th edition D&D template or '
                    + '\'starfinder\' for the Starfinder template!\n',
-        'error': 'Your input was invalid, please try again or type \'quit\' to quit!\n'
+        'error': 'Your input was invalid, please try again or type \'quit\' to quit!\n',
+        'quit': '(╯°□°）╯︵ ┻━┻'
     }
 }
