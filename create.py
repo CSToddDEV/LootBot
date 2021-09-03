@@ -15,11 +15,13 @@ class LootList:
         """
         Init for LootList
         """
-        self._created = True
-        self._templates = ['5e', 'starfinder']
+        self._started = False
+        self._template_chosen = False
         self._template = None
+        self._templates = ['5e', 'starfinder']
         self._ctx = ctx
         self._creator = ctx.message.author
+        self._creator_channel = None
         self._loot_list_id = 666
         self._bot = bot
         self.text = t['create']
@@ -55,6 +57,31 @@ class LootList:
         """
         return self._bot
 
+    def get_channel(self):
+        """
+        This function returns the creator's DM channel once it has been set,
+        it will return None if it has not been set.
+        """
+        return self._creator_channel
+
+    def get_started(self):
+        """
+        This method returns the boolean of self._started
+        """
+        return self._started
+
+    def get_template(self):
+        """
+        This method returns self._template
+        """
+        return self._template
+
+    def get_template_chosen(self):
+        """
+        This method returns the boolean fo template chosen
+        """
+        return self._template_chosen
+
     # Set Functions
     def set_template(self, template):
         """
@@ -71,6 +98,19 @@ class LootList:
         else:
             self._template = template
 
+    def set_channel(self, channel):
+        """
+        This method sets the self._creator_channel data member
+        """
+        self._creator_channel = channel
+
+    def set_started(self):
+        """
+        This method sets self._started to True
+        """
+        self._started = True
+
+    # LootSheet Creation Functions
     async def begin_lootsheet(self):
         """
         This method begins the creation of the new LootSheet
@@ -82,9 +122,6 @@ class LootList:
 
         # Listen for ready signal
         parent_bot.add_listener(self.received_message, 'on_message')
-
-        # Set template
-        self.set_template(self.request_template())
 
         return True
 
@@ -99,26 +136,55 @@ class LootList:
         await ctx.send(self.text['start_1'] + creator.mention)
         await ctx.send(self.text['start_2'] + creator.mention + self.text['start_3'])
 
-        # Send message to _creator
+        # Create channel with _creator
         channel = await creator.create_dm()
+        self.set_channel(channel)
+
+        # Send message to _creator
         await channel.send(self.text['creator_1'])
         await asyncio.sleep(2)
         await channel.send(self.text['creator_2'])
         await asyncio.sleep(2)
         await channel.send(self.text['creator_3'])
 
-    def request_template(self):
+        # Set _started to True
+        self.set_started()
+
+    async def request_template(self):
         """
         This method requests template option from creator
         """
-        return '5e'
+        # Get and send message to _creator channel
+        channel = self.get_channel()
+        await channel.send(self.text['template_1'])
+        await asyncio.sleep(2)
+        await channel.send(self.text['template_2'])
+        await asyncio.sleep(2)
+        await channel.send(self.text['template_3'])
 
     async def received_message(self, message):
         """
         This method receives messages and processes them according to the message
         """
-        if message.content.lower() == 'ready':
+        # Step 1 - Choose a template
+        if message.content.lower() == 'ready' and self.get_started() and not self.get_template_chosen():
+            await self.request_template()
 
+        # Step 2 - Confirm Template, Add Players
+        elif message.content.lower() in self.get_available_templates() and not self.get_template_chosen():
+            self.set_template(message.content.lower())
+            print(self._template)
+
+        # Error
+        elif message.author != self.get_bot():
+            await self.send_error()
+
+    async def send_error(self):
+        """
+        This method returns an error to the user if an incorrect input was used
+        """
+        channel = self.get_channel()
+        await channel.send(self.text['error'])
 
 
 class CreateError(Exception):

@@ -3,7 +3,6 @@
 # Description : This file holds the text responses for LootBot
 
 # Text variables for lb.py
-
 text = {
     'lb': {
         'bot_desc':  'LootBot is a Discord bot designed to help manage your Loot and Inventory for Online Table Top \
@@ -25,6 +24,14 @@ text = {
                    + 'Loot Sheet or \'stop\' to cancel LootSheet creation. '
                    + ' NOTE:  LootBot will '
                    + 'not be available in your channel chat during the '
-                   + 'LootSheet creation process.'
+                   + 'LootSheet creation process.',
+        'template_1': 'Currently LootBot offers two templates for easy LootSheet '
+                   + 'design!\n',
+        'template_2': 'You may choose between either a 5e based LootSheet designed for '
+                   + 'Dungeons and Dragons 5th edition games, or a LootSheet designed for '
+                   + 'Starfinder games!\n',
+        'template_3': 'Please respond with \'5e\' for the 5th edition D&D template or '
+                   + '\'starfinder\' for the Starfinder template!\n',
+        'error': 'Your input was invalid, please try again or type \'quit\' to quit!\n'
     }
 }
