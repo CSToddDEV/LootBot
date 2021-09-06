@@ -4,6 +4,7 @@
 
 # Import Statements
 import asyncio
+import creds
 from text_variables import text as t
 
 
@@ -24,6 +25,7 @@ class LootList:
         self._creator_channel = None
         self._loot_list_id = 666
         self._bot = bot
+        self._creds = None
         self.text = t['create']
 
     # Get Functions
@@ -82,6 +84,12 @@ class LootList:
         """
         return self._template_chosen
 
+    def get_creds(self):
+        """
+        This method returns self._creds
+        """
+        return self._creds
+
     # Set Functions
     def set_template(self, template):
         """
@@ -109,6 +117,14 @@ class LootList:
         This method sets self._started to True
         """
         self._started = True
+
+    def set_creds(self):
+        """
+        This method creates and sets credentials
+        """
+        credentials = creds.SheetsCreds()
+        credentials.set_creds()
+        self._creds = credentials.get_creds()
 
     # LootSheet Creation Functions
     async def begin_lootsheet(self):
