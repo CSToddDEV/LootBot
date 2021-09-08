@@ -33,6 +33,8 @@ text = {
         'template_3': 'Please respond with \'5e\' for the 5th edition D&D template or '
                    + '\'starfinder\' for the Starfinder template!\n',
         'error': 'Your input was invalid, please try again or type \'quit\' to quit!\n',
+        'num_players': 'How many players would you like the LootList set up for?  Do **NOT**\n'
+                       'include the DM in this number (ex: for 4 player characters, respond to this message with 4',
         'quit': '(╯°□°）╯︵ ┻━┻'
     }
 }

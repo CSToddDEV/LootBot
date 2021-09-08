@@ -18,6 +18,8 @@ class LootList:
         """
         self._started = False
         self._template_chosen = False
+        self._num_players_requested = False
+        self._gm_requested = False
         self._template = None
         self._templates = {'5e': '1XjrB13TOj35aBA9Ayq8iHExcHO48xzOi0zEozBMUIA8',
                            'starfinder': '1-SfI8ynZMvH_jjzFOkSfPUwZXjnhS4W7WiFz5iFVxjk'}
@@ -27,6 +29,8 @@ class LootList:
         self._loot_list_id = None
         self._bot = bot
         self._creds = SheetsCreds()
+        self._num_players = 0
+        self._ls_info = {}
         self.text = t['create']
 
     # Get Functions
@@ -91,6 +95,18 @@ class LootList:
         """
         return self._creds
 
+    def get_num_players_requested(self):
+        """
+        This method returns self._get_num_players_requested
+        """
+        return self._num_players_requested
+
+    def get_gm_requested(self):
+        """
+        This method returns self._gm_requested
+        """
+        return self._gm_requested
+
     # Set Functions
     def set_template(self, template):
         """
@@ -106,6 +122,7 @@ class LootList:
             raise CreateError('set_template', [template])
         else:
             self._template = templates[template]
+            self._template_chosen = True
 
     def set_channel(self, channel):
         """
@@ -124,6 +141,24 @@ class LootList:
         This method creates and sets credentials
         """
         self._creds = creds
+
+    def set_num_players_requested(self):
+        """
+        This method sets the self._num_players_requested step to True
+        """
+        self._num_players_requested = True
+
+    def set_gm_requested(self):
+        """
+        This method sets the self._gm_requested to True
+        """
+        self._gm_requested = True
+
+    def set_num_players(self, num_players):
+        """
+        This method sets the number of players **NOT** including the GM
+        """
+        self._num_players = num_players
 
     # LootSheet Creation Functions
     async def begin_lootsheet(self):
@@ -191,10 +226,14 @@ class LootList:
         elif message.content.lower() == 'ready' and self.get_started() and not self.get_template_chosen():
             await self.request_template()
 
-        # Step 2 - Confirm Template, Add Players
+        # Step 2 - Confirm Template, Request Number of Players
         elif message.content.lower() in self.get_available_templates() and not self.get_template_chosen():
             self.set_template(message.content.lower())
-            print(self._template)
+            await self.number_of_players()
+
+        # Step 3 - Set number of players, Request GM
+        elif message.conent.isnumeric() and self.get_num_players_requested() and not self.get_gm_requested():
+            self.set_num_players(int(message.content))
 
         # Quit
         elif message.content.lower() == 'quit':
@@ -218,6 +257,14 @@ class LootList:
         """
         channel = self.get_channel()
         await channel.send(self.text['quit'])
+
+    async def number_of_players(self):
+        """
+        This method requests the number of players for the LootSheet
+        """
+        channel = self.get_channel()
+        self.set_num_players_requested()
+        await channel.send(self.text['num_players'])
 
 
 class CreateError(Exception):
