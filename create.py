@@ -4,7 +4,7 @@
 
 # Import Statements
 import asyncio
-import creds
+from creds import SheetsCreds
 from text_variables import text as t
 
 
@@ -19,13 +19,14 @@ class LootList:
         self._started = False
         self._template_chosen = False
         self._template = None
-        self._templates = ['5e', 'starfinder']
+        self._templates = {'5e': '1XjrB13TOj35aBA9Ayq8iHExcHO48xzOi0zEozBMUIA8',
+                           'starfinder': '1-SfI8ynZMvH_jjzFOkSfPUwZXjnhS4W7WiFz5iFVxjk'}
         self._ctx = ctx
         self._creator = ctx.message.author
         self._creator_channel = None
-        self._loot_list_id = 666
+        self._loot_list_id = None
         self._bot = bot
-        self._creds = None
+        self._creds = SheetsCreds()
         self.text = t['create']
 
     # Get Functions
@@ -101,10 +102,10 @@ class LootList:
         templates = self.get_available_templates()
 
         # Check to make sure template is valid selection
-        if template not in templates:
+        if template not in templates.keys():
             raise CreateError('set_template', [template])
         else:
-            self._template = template
+            self._template = templates[template]
 
     def set_channel(self, channel):
         """
@@ -118,13 +119,11 @@ class LootList:
         """
         self._started = True
 
-    def set_creds(self):
+    def set_creds(self, creds):
         """
         This method creates and sets credentials
         """
-        credentials = creds.SheetsCreds()
-        credentials.set_creds()
-        self._creds = credentials.get_creds()
+        self._creds = creds
 
     # LootSheet Creation Functions
     async def begin_lootsheet(self):

@@ -3,10 +3,7 @@
 # Description : Class for creating credentials for Google Sheets
 
 # Import Statements
-import os.path
-from google.oauth2.credentials import Credentials
-from google_auth_oauthlib.flow import InstalledAppFlow
-from google.auth.transport.requests import Request
+from google.oauth2.service_account import Credentials
 
 
 class SheetsCreds:
@@ -19,8 +16,7 @@ class SheetsCreds:
         """
         self._scopes = ['https://www.googleapis.com/auth/drive',
                         'https://www.googleapis.com/auth/spreadsheets']
-        self._sheet_id = '1XjrB13TOj35aBA9Ayq8iHExcHO48xzOi0zEozBMUIA8'
-        self._creds = None
+        self._creds = self.build_creds()
 
     def get_scopes(self):
         """
@@ -32,39 +28,23 @@ class SheetsCreds:
         """
         This method returns valid creds or None
         """
-        creds = self._creds
+        return self._creds
 
-        if not creds or not creds.valid:
-            return None
-        else:
-            return creds
-
-    def set_creds(self):
+    def set_creds(self, creds):
         """
         This method gets credentials for the Google Sheets API
         """
-        if os.path.exists('lootbot_secret.json'):
-            # Return credentials
-            self._creds = Credentials.from_authorized_user_file('lootbot_secret.json', self.get_scopes())
-        else:
-            # Incorrect Secret
-            self._creds = None
+        self._creds = creds
 
-    def build_token(self):
-        creds = None
-        # The file token.json stores the user's access and refresh tokens, and is
-        # created automatically when the authorization flow completes for the first
-        # time.
-        if os.path.exists('token.json'):
-            creds = Credentials.from_authorized_user_file('token.json', self.get_scopes())
-        # If there are no (valid) credentials available, let the user log in.
-        if not creds or not creds.valid:
-            if creds and creds.expired and creds.refresh_token:
-                creds.refresh(Request())
-            else:
-                flow = InstalledAppFlow.from_client_secrets_file(
-                    'credentials.json', self.get_scopes())
-                creds = flow.run_local_server(port=0)
-            # Save the credentials for the next run
-            with open('token.json', 'w') as token:
-                token.write(creds.to_json())
+    def build_creds(self):
+        """
+        This method returns credentials built from lootbot-sa.json
+        """
+        creds = Credentials.from_service_account_file('./lootbot-sa.json', scopes=self.get_scopes())
+        return creds
+
+    def refresh_creds(self):
+        """
+        This method refreshes the Service Account credentials
+        """
+        self.set_creds(self.build_creds())

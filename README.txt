@@ -65,6 +65,4 @@ Dependencies:
     -> asyncio
     -> os.path
     -> asyncio
-    -> google.oauth2.credentials
-    -> google_auth_oauthlib.flow
-    -> google.auth.transport.requests
+    -> google.oauth2.service_account
