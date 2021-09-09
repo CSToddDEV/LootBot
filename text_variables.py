@@ -43,6 +43,10 @@ text = {
         'player_request_1': 'Please respond to this message with character #',
         'player_request_2': '\'s character name, google email, and Discord handle seperated by commas. '
                    + 'Example: Frodo Baggins, NotAFanOfEagles@gmail.com, Baggins#1234\n',
+        'name_request': 'Please respond to this message with a name for your LootSheet, some recommendations '
+                   + 'could be the adventuring party name, or name of the adventure being run!\n',
+        'confirm_name': 'Your LootSheet\'s name will be: \n',
+
         'quit': '(╯°□°）╯︵ ┻━┻'
     }
 }
