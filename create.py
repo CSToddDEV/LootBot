@@ -22,6 +22,7 @@ class LootList:
         self._gm_requested = False
         self._name_requested = False
         self._confirmation_requested = False
+        self._edit_ls = False
         self._template = None
         self._templates = {'5e': '1XjrB13TOj35aBA9Ayq8iHExcHO48xzOi0zEozBMUIA8',
                            'starfinder': '1-SfI8ynZMvH_jjzFOkSfPUwZXjnhS4W7WiFz5iFVxjk'}
@@ -36,6 +37,8 @@ class LootList:
         self._ls_info = {'gm': None,
                          'players': [None],
                          'name': None}
+        self._to_edit = None
+        self._edit_player_num = 0
         self.text = t['create']
 
     # Get Functions
@@ -141,6 +144,24 @@ class LootList:
         This method returns self._confirmation_requested
         """
         return self._confirmation_requested
+
+    def get_ls_edit(self):
+        """
+        This method returns self._edit_ls
+        """
+        return self._edit_ls
+
+    def get_to_edit(self):
+        """
+        This method returns self._to_edit
+        """
+        return self._to_edit
+
+    def get_edit_player_num(self):
+        """
+        This method returns self._edit_player_num
+        """
+        return self._edit_player_num
 
     # Set Functions
     def set_template(self, template):
@@ -266,6 +287,41 @@ class LootList:
         # Add name info to dictionary
         ls_info['name'] = name
 
+    def set_ls_edit(self,needs_edit=False, to_edit=None, player_num=0):
+        """
+        This method sets the corresponding attributes when editing the LootSheet
+        during creation
+        """
+        self._edit_ls = needs_edit
+        self._to_edit = to_edit
+        self._edit_player_num = player_num
+
+    def set_edit_player(self, player_number):
+        """
+        This method sets self._processed_players
+        """
+        self._processed_players = player_number
+
+    def set_change(self, message):
+        """
+        This method sets the changes requested by the player during the confirmation process
+        """
+        ls_info = message
+        to_edit = self.get_to_edit()
+
+        # Set info depending on message contents
+        if to_edit == 'name':
+            self.set_name(ls_info)
+        elif to_edit == 'gm':
+            self.set_gm(ls_info)
+        elif to_edit == 'player':
+            self.set_edit_player(self.get_edit_player_num())
+            self.set_player(message)
+            self.set_edit_player(self.get_num_players())
+
+        # Reset edit info
+        self.set_ls_edit()
+
     # async Functions
     async def begin_lootsheet(self):
         """
@@ -364,9 +420,20 @@ class LootList:
             await self.request_name()
 
         # Step 7 - Process LootSheet Name, Request Confirmation
-        elif self.get_name_requested() and not self.get_confirmation_requested()
+        elif self.get_name_requested() and not self.get_confirmation_requested():
             self.set_name(message.content)
             await self.request_confirmation()
+
+        # Step 8.a - Process Changes, Re-Request Confirmation
+        elif self.get_confirmation_requested() and message.contnet.lower() != 'correct':
+            self.process_change(message.content)
+
+        # Step 8.b - Process Changes, Re-Request Confirmation
+        elif self.get_ls_edit():
+            self.set_change(message.content)
+            await self.request_confirmation()
+
+        # Step 9 - Process Confirmation, Create Lootsheet,
 
         # Error
         else:
@@ -416,8 +483,7 @@ class LootList:
         """
         channel = self.get_channel()
         self.set_players_processed()
-        await channel.send(self.text['player_request_1'] + str(self.get_processed_players())
-                           + self.text['player_request_2'])
+        await channel.send(self.text['player_request'].format(self.get_processed_players()))
 
     async def request_name(self):
         """
@@ -432,7 +498,59 @@ class LootList:
         """
         channel = self.get_channel()
         self.set_confirmation_requested()
-        await channel.send(self.text['confirm_name'] + )
+        message = self.construct_confirmation()
+        await channel.send(message)
+        await channel.send(self.text['confirm_request'])
+
+    # Non-async Functions
+    # noinspection PyUnresolvedReferences
+    def construct_confirmation(self):
+        """
+        This method constructs the confirmation message
+        """
+        ls_info = self.get_ls_info()
+        message = ""
+        player = 1
+
+        # Construct Name Confirmation
+        message += self.text['confirm_name'].format(ls_info['name'])
+
+        # Construct GM Confirmation
+        message += self.text['confirm_gm'].format(ls_info['gm'][0], ls_info['gm'][1], ls_info['gm'][2])
+
+        # Construct Player Confirmation
+        while player <= self.get_num_players():
+            message += self.text['confirm_player'].format(player=player, name=ls_info[player][0],
+                                                          email=ls_info[player][1], discord=ls_info[player][2])
+
+        return message
+
+    def process_change(self, message):
+        """
+        This method processes the requested changes.
+        """
+        # Split message up to the required parts
+        request = message.split()
+        to_change = request[0]
+        if request[1]:
+            player_num = request[1]
+        else:
+            player_num = 0
+
+        # Set edit attributes
+        self.set_ls_edit(True, to_change, player_num)
+
+        # Send required message message to player to request new info
+        if to_change.lower() == 'name':
+            await self.request_name()
+        elif to_change.lower() == 'gm':
+            await self.request_gm()
+        elif to_change.lower() == 'player':
+            self.set_edit_player(player_num)
+            await self.request_character()
+            self.set_edit_player(self.get_num_players())
+        else:
+            await self.send_error()
 
 
 class CreateError(Exception):
