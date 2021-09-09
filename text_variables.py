@@ -33,8 +33,16 @@ text = {
         'template_3': 'Please respond with \'5e\' for the 5th edition D&D template or '
                    + '\'starfinder\' for the Starfinder template!\n',
         'error': 'Your input was invalid, please try again or type \'quit\' to quit!\n',
+        'email_error': 'Your input does not contain a gmail address which is needed for the LootSheet\n',
         'num_players': 'How many players would you like the LootList set up for?  Do **NOT**\n'
-                       'include the DM in this number (ex: for 4 player characters, respond to this message with 4',
+                       'include the DM in this number (ex: for 4 player characters, respond to this message with 4)',
+        'char_prep': 'Please get ready to input your GM\'s and character\'s information.  You will '
+                   + 'need their character (or GM) name, gmail email address, and full Discord handle\n',
+        'gm_request': 'Please respond to this message with your Game Master\'s name, google email, and Discord handle '
+                   + 'seperated by commas.  Example: Loot Bot, LootBot@gmail.com, LootBot#1234\n',
+        'player_request_1': 'Please respond to this message with character #',
+        'player_request_2': '\'s character name, google email, and Discord handle seperated by commas. '
+                   + 'Example: Frodo Baggins, NotAFanOfEagles@gmail.com, Baggins#1234\n',
         'quit': '(╯°□°）╯︵ ┻━┻'
     }
 }

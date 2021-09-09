@@ -52,7 +52,7 @@ Testing Specs:
 Features:
 
     ---> Creates and updates custom LootSheet in Google Sheets from the Discord
-    char program.
+    chat program.
     ---> Track and manage LootSheet in real time
     ---> GM Sheet Locking Ability and Permissions
     ---> Sheet Email Functionality

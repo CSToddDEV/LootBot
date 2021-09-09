@@ -30,6 +30,7 @@ class LootList:
         self._bot = bot
         self._creds = SheetsCreds()
         self._num_players = 0
+        self._processed_players = 0
         self._ls_info = {}
         self.text = t['create']
 
@@ -107,6 +108,18 @@ class LootList:
         """
         return self._gm_requested
 
+    def get_processed_players(self):
+        """
+        This method returns self._processed_players
+        """
+        return self._processed_players
+
+    def get_ls_info(self):
+        """
+        This method returns self._ls_info
+        """
+        return self._ls_info
+
     # Set Functions
     def set_template(self, template):
         """
@@ -148,11 +161,11 @@ class LootList:
         """
         self._num_players_requested = True
 
-    def set_gm_requested(self):
+    def set_gm_requested(self, requested=True):
         """
         This method sets the self._gm_requested to True
         """
-        self._gm_requested = True
+        self._gm_requested = requested
 
     def set_num_players(self, num_players):
         """
@@ -160,7 +173,34 @@ class LootList:
         """
         self._num_players = num_players
 
-    # LootSheet Creation Functions
+    def set_ls_info(self, ls_info):
+        """
+        This method sets the self._ls_info dictionary
+        """
+        self._ls_info = ls_info
+
+    def set_gm(self, message):
+        """
+        This method sets the GM information in self._ls_info
+        """
+        # Get current LootSheet info dictionary
+        ls_info = self.get_ls_info()
+        # Split passed message in to list
+        info = message.split(',')
+        # Error Checking for gmail address
+        if '@gmail.com' not in info[1]:
+            await self.email_error()
+            self.set_gm_requested(False)
+        # Add list of info to LootSheet info dictionary
+        ls_info['gm'] = info
+
+    def set_players_processed(self):
+        """
+        This method increases the player's processed by 1
+        """
+        self._processed_players += 1
+
+    # async Functions
     async def begin_lootsheet(self):
         """
         This method begins the creation of the new LootSheet
@@ -222,6 +262,11 @@ class LootList:
         if message.author == parent_bot.user or message.channel != self.get_channel():
             return
 
+        # Quit
+        elif message.content.lower() == 'quit':
+            await self.quit_message()
+            parent_bot.remove_listener(self.received_message, 'on_message')
+
         # Step 1 - Choose a template
         elif message.content.lower() == 'ready' and self.get_started() and not self.get_template_chosen():
             await self.request_template()
@@ -234,11 +279,12 @@ class LootList:
         # Step 3 - Set number of players, Request GM
         elif message.conent.isnumeric() and self.get_num_players_requested() and not self.get_gm_requested():
             self.set_num_players(int(message.content))
+            await self.request_gm()
 
-        # Quit
-        elif message.content.lower() == 'quit':
-            await self.quit_message()
-            parent_bot.remove_listener(self.received_message, 'on_message')
+        # Step 4 - Process GM, Request First Player
+        elif self.get_gm_requested() and self.get_processed_players() == 0:
+            self.set_gm(message.content)
+            await self.request_character()
 
         # Error
         else:
@@ -265,6 +311,31 @@ class LootList:
         channel = self.get_channel()
         self.set_num_players_requested()
         await channel.send(self.text['num_players'])
+
+    async def request_gm(self):
+        """
+        This method requests the GM information for the LootSheet
+        """
+        channel = self.get_channel()
+        self.set_gm_requested()
+        await channel.send(self.text['char_prep'])
+        await channel.send(self.text['gm_request'])
+
+    async def email_error(self):
+        """
+        This is called when the response does not contain a gmail address.
+        """
+        channel = self.get_channel()
+        await channel.send(self.text['email_error'])
+
+    async def request_character(self):
+        """
+        This method requests the character information for the LootSheet
+        """
+        channel = self.get_channel()
+        self.set_players_processed()
+        await channel.send(self.text['player_request_1'] + str(self.get_processed_players())
+                           + self.text['player_request_2'])
 
 
 class CreateError(Exception):
