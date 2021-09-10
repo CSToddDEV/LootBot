@@ -33,7 +33,7 @@ class LootList:
         self._bot = bot
         self._creds = SheetsCreds()
         self._num_players = 0
-        self._processed_players = 0
+        self._recorded_players = 0
         self._ls_info = {'gm': None,
                          'players': [None],
                          'name': None}
@@ -115,11 +115,11 @@ class LootList:
         """
         return self._gm_requested
 
-    def get_processed_players(self):
+    def get_recorded_players(self):
         """
-        This method returns self._processed_players
+        This method returns self._recorded_players
         """
-        return self._processed_players
+        return self._recorded_players
 
     def get_ls_info(self):
         """
@@ -216,17 +216,17 @@ class LootList:
         """
         self._num_players = num_players
 
-    def set_players_processed(self):
+    def set_players_recorded(self):
         """
-        This method increases the player's processed by 1
+        This method increases the player's recorded by 1
         """
-        self._processed_players += 1
+        self._recorded_players += 1
 
-    def set_negative_player_processed(self):
+    def set_negative_player_recorded(self):
         """
-        This method increases the player's processed by 1
+        This method increases the player's recorded by 1
         """
-        self._processed_players -= 1
+        self._recorded_players -= 1
 
     def set_name_requested(self):
         """
@@ -261,9 +261,9 @@ class LootList:
 
     def set_edit_player(self, player_number):
         """
-        This method sets self._processed_players
+        This method sets self._recorded_players
         """
-        self._processed_players = player_number
+        self._recorded_players = player_number
 
     def set_ls_info(self, ls):
         """
@@ -353,17 +353,17 @@ class LootList:
             await self.request_gm()
 
         # Step 4 - Process GM, Request First Player
-        elif self.get_gm_requested() and self.get_processed_players() == 0:
+        elif self.get_gm_requested() and self.get_recorded_players() == 0:
             await self.set_gm(message.content)
             await self.request_character()
 
         # Step 5 - Process Players, Request Next Player
-        elif 0 < self.get_processed_players() < self.get_num_players():
+        elif 0 < self.get_recorded_players() < self.get_num_players():
             await self.set_player(message.content)
             await self.request_character()
 
         # Step 6 - Process Final Player, Request LootSheet Name
-        elif self.get_processed_players() == self.get_num_players() and not self.get_name_requested():
+        elif self.get_recorded_players() == self.get_num_players() and not self.get_name_requested():
             await self.set_player(message.content)
             self.set_name_requested()
             await self.request_name()
@@ -375,7 +375,7 @@ class LootList:
 
         # Step 8.a - Process Changes, Re-Request Confirmation
         elif self.get_confirmation_requested() and message.content.lower() != 'correct' and not self.get_ls_edit():
-            await self.process_change(message.content)
+            await self.record_change(message.content)
 
         # Step 8.b - Process Changes, Re-Request Confirmation
         elif self.get_ls_edit():
@@ -435,8 +435,8 @@ class LootList:
         This method requests the character information for the LootSheet
         """
         channel = self.get_channel()
-        await channel.send(self.text['player_request'].format((self.get_processed_players() + 1)))
-        self.set_players_processed()
+        await channel.send(self.text['player_request'].format((self.get_recorded_players() + 1)))
+        self.set_players_recorded()
 
     async def request_name(self):
         """
@@ -481,7 +481,7 @@ class LootList:
         # Error Checking for gmail address
         if '@gmail.com' not in info[1]:
             await self.email_error()
-            self.set_negative_player_processed()
+            self.set_negative_player_recorded()
             return
 
         # Add list of info to LootSheet info dictionary
@@ -502,7 +502,7 @@ class LootList:
         # Error Checking for gmail address
         if '@gmail.com' not in info[1]:
             await self.email_error()
-            self.set_negative_player_processed()
+            self.set_negative_player_recorded()
             return
 
         # Add list of info to LootSheet info dictionary
@@ -518,7 +518,7 @@ class LootList:
         await channel.send(message)
         await channel.send(self.text['confirm_request'])
 
-    async def process_change(self, message):
+    async def record_change(self, message):
         """
         This method processes the requested changes.
         """
