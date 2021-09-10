@@ -4,6 +4,7 @@
 
 # Import Statements
 import asyncio
+from googleapiclient import discovery
 from creds import SheetsCreds
 from text_variables import text as t
 
@@ -24,6 +25,7 @@ class LootList:
         self._confirmation_requested = False
         self._edit_ls = False
         self._template = None
+        self._template_type = None
         self._templates = {'5e': '1XjrB13TOj35aBA9Ayq8iHExcHO48xzOi0zEozBMUIA8',
                            'starfinder': '1-SfI8ynZMvH_jjzFOkSfPUwZXjnhS4W7WiFz5iFVxjk'}
         self._ctx = ctx
@@ -39,6 +41,7 @@ class LootList:
                          'name': None}
         self._to_edit = None
         self._edit_player_num = 0
+        self._ls_id = None
         self.text = t['create']
 
     # Get Functions
@@ -101,7 +104,8 @@ class LootList:
         """
         This method returns self._creds
         """
-        return self._creds
+        self._creds.refresh_creds()
+        return self._creds.get_creds()
 
     def get_num_players_requested(self):
         """
@@ -162,6 +166,18 @@ class LootList:
         This method returns self._edit_player_num
         """
         return self._edit_player_num
+
+    def get_template_type(self):
+        """
+        This method returns self.template_type
+        """
+        return self._template_type
+
+    def get_ls_id(self):
+        """
+        This method returns self._ls_id
+        """
+        return self._ls_id
 
     # Set Functions
     def set_template(self, template):
@@ -271,6 +287,18 @@ class LootList:
         """
         self._ls_info = ls
 
+    def set_template_type(self, template_type):
+        """
+        This method sets self._template_type
+        """
+        self._template_type = template_type
+
+    def set_ls_id(self, ls_id):
+        """
+        This method sets self._ls_id
+        """
+        self._ls_id = ls_id
+
     # async Functions
     async def begin_lootsheet(self):
         """
@@ -345,6 +373,7 @@ class LootList:
         # Step 2 - Confirm Template, Request Number of Players
         elif message.content.lower() in self.get_available_templates() and not self.get_template_chosen():
             self.set_template(message.content.lower())
+            self.set_template_type(message.content.lower())
             await self.number_of_players()
 
         # Step 3 - Set number of players, Request GM
@@ -608,8 +637,34 @@ class LootList:
         """
         This method is the parent method for creating the custom LootSheet
         """
-        ls = self.get_ls_info()
-        print('MADE IT: ', ls)
+        # Fresh Credentials
+        credentials = self.get_creds()
+
+        # Create New LS from Template
+        new_ls = self.copy_template(credentials)
+        self.set_ls_id(new_ls['id'])
+
+        # Modify New LS Template
+        self.mod_ls()
+
+    def copy_template(self, creds):
+        """
+        This method is creates a new template copy from the selected template
+        """
+        ls_info = self.get_ls_info()
+        new_ls_info = {
+            'name': ls_info['name'],
+            'description': self.text['description'].format(self.get_template_type(), ls_info['name']),
+            'starred': True
+        }
+
+        # Copy file and return returned File Resource
+        service = discovery.build('drive', 'v3', credentials=creds)
+        return service.files().copy(fileId=self.get_template(), body=new_ls_info).execute()
+
+    def mod_ls(self):
+        # Modify New LS
+        pass
 
 
 class CreateError(Exception):

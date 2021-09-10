@@ -58,6 +58,7 @@ text = {
         'creating_ls': '\n\nCreation of the LootSheet, **{}**, has begun!  Please be patient, this will take a '
                        'few minutes.  I will let you know when it is completed!',
         'created_ls': 'The LootSheet, **{}**, has been created!  Please check your email for a link to the LootSheet',
+        'description': 'This is a {} LootSheet for {}.',
         'quit': '**(╯°□°）╯︵ ┻━┻**'
     }
 }
