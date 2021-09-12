@@ -15,14 +15,14 @@ class GM:
         self._character = char['info'][0]
         self._email = char['info'][1]
         self._discord = char['info'][2]
-        self._party_bot = char['party_bot']
+        self._party_chest = char['party_chest']
 
         # LootSheet Info
         self._ls_id = char['ls_id']
         self._ls_name = char['ls_name']
         self._creds = creds
 
-        # Players Page Locations
+        # Players Page Cells
         self._players_name = char['cells']['players'][0]
         self._players_email = char['cells']['players'][1]
         self._players_discord = char['cells']['players'][2]

@@ -4,7 +4,7 @@
 
 # Import Statements
 import asyncio
-from player import GM
+from player import GM, FifthEditionPlayer, StarFinderPlayer
 from googleapiclient import discovery
 from creds import SheetsCreds
 from text_variables import text as t
@@ -195,7 +195,7 @@ class LootList:
         ls_info = self.get_ls_info()
         char = {
             'info': ls_info['gm'],
-            'party_bot': False,
+            'party_chest': False,
             'ls_id': self.get_ls_id(),
             'ls_name': ls_info['name'],
             'cells': {
@@ -224,7 +224,7 @@ class LootList:
         ls_info = self.get_ls_info()
         char = {
             'info': ls_info['players'][player_num],
-            'party_bot': False,
+            'party_chest': False,
             'ls_id': self.get_ls_id(),
             'ls_name': ls_info['name'],
             'cells': {
@@ -253,6 +253,25 @@ class LootList:
         return ['C{}'.format(7 + (5 * player_num)),    # Name on Players Page
                 'F{}'.format(7 + (5 * player_num)),    # Email on Players Page
                 'C{}'.format(9 + (5 * player_num))]    # Discord on Players Page
+
+    def get_party_chest_info(self):
+        """
+        This method returns the info for the Party Loot Chest
+        """
+        ls_info = self.get_ls_info()
+
+        char = {
+            'info': [None, None, None],
+            'party_chest': True,
+            'ls_id': self.get_ls_id(),
+            'ls_name': ls_info['name'],
+            'cells': {
+                'funds': self.get_funds_cells(0),
+                'players': [None, None, None]
+            }
+        }
+
+        return char
 
     # Set Functions
     def set_template(self, template):
@@ -742,12 +761,11 @@ class LootList:
         new_ls = self.copy_template(credentials)
         self.set_ls_id(new_ls['id'])
         self.set_sheet_ids(credentials)
-        print('TEST: \n', self.get_sheet_ids())
 
         # Create GM and Players
         self.create_players(credentials)
 
-        # Modify New LS and Add Characters
+        # Modify New LS Dimensions
 
     def create_players(self, creds):
         """
@@ -757,6 +775,7 @@ class LootList:
         player = 0
         total_players = self.get_num_players()
 
+        # Create players and add them to player_dict
         while player <= total_players:
             if player == 0:
                 char = self.get_gm_info()
@@ -764,9 +783,14 @@ class LootList:
                 self.set_player_dict('gm', gm)
             else:
                 char = self.get_player_info(player)
+                self.choose_player_class(char, creds, player)
 
             # Increase Player
             player += 1
+
+        # Create Party Chest and add to player_dict
+        char = self.get_party_chest_info()
+        self.choose_player_class(char, creds, 'party_chest')
 
     def copy_template(self, creds):
         """
@@ -783,9 +807,22 @@ class LootList:
         service = discovery.build('drive', 'v3', credentials=creds)
         return service.files().copy(fileId=self.get_template(), body=new_ls_info).execute()
 
-    def mod_ls(self):
-        # Modify New LS
-        pass
+    def choose_player_class(self, char, creds, player_num):
+        """
+        This method creates the correct player object based on the template (game system) being
+        used
+        """
+        template = self.get_template_type()
+
+        # 5e
+        if template == '5e':
+            self.set_player_dict('player_{}'.format(player_num),
+                                 FifthEditionPlayer(char, creds))
+
+        # Star Finder
+        elif template == 'starfinder':
+            self.set_player_dict('player_{}'.format(player_num),
+                                 StarFinderPlayer(char, creds))
 
 
 class CreateError(Exception):
