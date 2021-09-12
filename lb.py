@@ -7,7 +7,7 @@ import os
 from dotenv import load_dotenv
 from discord.ext import commands
 from text_variables import text as t
-from create import LootList
+from lootsheet import LootList
 
 
 class LootBot:

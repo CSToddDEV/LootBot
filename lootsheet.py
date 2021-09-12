@@ -1,9 +1,10 @@
 # Author: Calvin Todd
-# Project: LootBot - create.py
+# Project: LootBot - lootsheet.py
 # Description : Class for creating a new Loot List
 
 # Import Statements
 import asyncio
+from player import GM
 from googleapiclient import discovery
 from creds import SheetsCreds
 from text_variables import text as t
@@ -17,6 +18,7 @@ class LootList:
         """
         Init for LootList
         """
+        # Booleans/Attributes for setup
         self._started = False
         self._template_chosen = False
         self._num_players_requested = False
@@ -24,32 +26,39 @@ class LootList:
         self._name_requested = False
         self._confirmation_requested = False
         self._edit_ls = False
+        self._to_edit = None
+        self._edit_player_num = 0
+        self.text = t['create']
+
+        # Template
         self._template = None
         self._template_type = None
         self._templates = {'5e': '1XjrB13TOj35aBA9Ayq8iHExcHO48xzOi0zEozBMUIA8',
                            'starfinder': '1-SfI8ynZMvH_jjzFOkSfPUwZXjnhS4W7WiFz5iFVxjk'}
+
+        # Creator/Channel Info
         self._ctx = ctx
         self._creator = ctx.message.author
         self._creator_channel = None
-        self._loot_list_id = None
         self._bot = bot
         self._creds = SheetsCreds()
+
+        # LootSheet Info
+        self._ls_id = None
+        self._sheet_ids = {}
+        self._players = {}
         self._num_players = 0
         self._recorded_players = 0
         self._ls_info = {'gm': None,
                          'players': [None],
                          'name': None}
-        self._to_edit = None
-        self._edit_player_num = 0
-        self._ls_id = None
-        self.text = t['create']
 
     # Get Functions
     def get_id(self):
         """
         This method returns the Loot List ID
         """
-        return self._loot_list_id
+        return self._ls_id
 
     def get_context(self):
         """
@@ -179,6 +188,67 @@ class LootList:
         """
         return self._ls_id
 
+    def get_gm_info(self):
+        """
+        This method returns the dictionary for creating the GM class
+        """
+        ls_info = self.get_ls_info()
+        char = {
+            'info': ls_info['gm'],
+            'party_bot': False,
+            'ls_id': self.get_ls_id(),
+            'ls_name': ls_info['name'],
+            'cells': {
+                'players': ['C7', 'F7', 'C9']
+                    }
+                }
+
+        return char
+
+    def get_sheet_ids(self):
+        """
+        This method returns self._sheet_ids
+        """
+        return self._sheet_ids
+
+    def get_players(self):
+        """
+        This method returns self._players
+        """
+        return self._players
+
+    def get_player_info(self, player_num):
+        """
+        This method returns the dictionary for creating the GM class
+        """
+        ls_info = self.get_ls_info()
+        char = {
+            'info': ls_info['players'][player_num],
+            'party_bot': False,
+            'ls_id': self.get_ls_id(),
+            'ls_name': ls_info['name'],
+            'cells': {
+                'funds': self.get_funds_cells(player_num),
+                'players': self.get_players_cells(player_num)
+                    }
+                }
+
+        return char
+
+    def get_funds_cells(self, player_num):
+        """
+        This method provides the correct Funds cells based on the passed player_number
+        """
+        return ['C{}'.format(9 + player_num)]          # Name on Funds Page
+
+    def get_players_cells(self, player_num):
+        """
+        This method provides the correct Players cells based on the passed player_number
+        """
+        return ['C{}'.format(7 + (5 * player_num)),    # Name on Players Page
+                'F{}'.format(7 + (5 * player_num)),    # Email on Players Page
+                'C{}'.format(9 + (5 * player_num))]    # Discord on Players Page
+
     # Set Functions
     def set_template(self, template):
         """
@@ -298,6 +368,29 @@ class LootList:
         This method sets self._ls_id
         """
         self._ls_id = ls_id
+
+    def set_sheet_ids(self, creds):
+        """
+        This method sets the sheet IDs dictionary  as "Sheet Name": "Sheet ID"
+        """
+        # Get Sheets dicitonary
+        sheets = self.get_sheet_ids()
+
+        # Create New service and request data
+        service = discovery.build('sheets', 'v4', credentials=creds)
+        ls_data = service.spreadsheets().get(spreadsheetId=self.get_ls_id(), ranges=[],
+                                             includeGridData=False).execute()
+
+        # Set in dictionary as "Sheet Name" : "Sheet ID"
+        for sheet in ls_data['sheets']:
+            sheets[sheet['properties']['title']] = sheet['properties']['sheetId']
+
+    def set_player_dict(self, role, player):
+        """
+        This method sets a player in the player dictionary
+        """
+        players = self.get_players()
+        players[role] = player
 
     # async Functions
     async def begin_lootsheet(self):
@@ -643,9 +736,32 @@ class LootList:
         # Create New LS from Template
         new_ls = self.copy_template(credentials)
         self.set_ls_id(new_ls['id'])
+        self.set_sheet_ids(credentials)
+        print('TEST: \n', self.get_sheet_ids())
 
-        # Modify New LS Template
-        self.mod_ls()
+        # Create GM and Players
+        self.create_players(credentials)
+
+        # Modify New LS and Add Characters
+
+    def create_players(self, creds):
+        """
+        This method creates and sets the players and GM for the LootSheet
+        """
+        # Players to add
+        player = 0
+        total_players = self.get_num_players()
+
+        while player <= total_players:
+            if player == 0:
+                char = self.get_gm_info()
+                gm = GM(char, creds)
+                self.set_player_dict('gm', gm)
+            else:
+                char = self.get_player_info(player)
+
+            # Increase Player
+            player += 1
 
     def copy_template(self, creds):
         """
