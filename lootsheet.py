@@ -239,7 +239,12 @@ class LootList:
         """
         This method provides the correct Funds cells based on the passed player_number
         """
-        return ['C{}'.format(9 + player_num)]          # Name on Funds Page
+        return ['C{}'.format(9 + player_num),          # Name on Funds Page
+                'D{}'.format(9 + player_num),          # 5e: Platinum, Starfinder: Credits
+                'E{}'.format(9 + player_num),          # 5e: Gold
+                'F{}'.format(9 + player_num),          # 5e: Electrum
+                'G{}'.format(9 + player_num),          # 5e: Silver
+                'H{}'.format(9 + player_num)]          # 5e: Copper
 
     def get_players_cells(self, player_num):
         """

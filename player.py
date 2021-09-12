@@ -59,12 +59,25 @@ class FifthEditionPlayer(Player):
         """
         # Calls super on Player class
         super().__init__(char, creds)
-        self._funds_currency =
+        self._funds_currency = {
+            'pp': char['cells']['funds'][1],
+            'gp': char['cells']['funds'][2],
+            'ep': char['cells']['funds'][3],
+            'sp': char['cells']['funds'][4],
+            'cp': char['cells']['funds'][5]
+        }
 
-    def set_currency_cells(self):
+
+class StarFinderPlayer(Player):
+    """
+    This class represents a player/character combination for Star Finder to use with LootSheet
+    """
+    def __init__(self, char, creds):
         """
-        This method returns the currency cells in the order PP, GP, EP, SP, and CP for
-        for the FifthEditionPlayer class
+        The __init__ function for the FifthEditionPLayer Class
         """
-
-
+        # Calls super on Player class
+        super().__init__(char, creds)
+        self._funds_currency = {
+            'credits': char['cells']['funds'][1]
+        }
