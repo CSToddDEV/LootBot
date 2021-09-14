@@ -62,3 +62,47 @@ class Dimensions:
         to_increase (int) variable and returns the new row number (string)
         """
         return str(int(row_number) + to_increase)
+
+    def increase_column_letter(self, column):
+        """
+        This method increases the column (list) by 1 and returns it as a list
+        """
+        # Find index of last column letter
+        i = len(column) - 1
+
+        # Handle Z as a column letter and adding a new column letter ( example 'Z' -> 'AA')
+        while column[i] == 'Z':
+            # Change Z to A
+            column[i] = 'A'
+
+            # If there is another letter in the column letter
+            if i > 0:
+                i -= 1
+
+            # Add leading A if Z was the leftmost column letter and return since will be updated
+            else:
+                column.insert(0, 'A')
+                return column
+
+        # Now increase already existing non-Z column letter by converting to ASCII
+        column[i] = chr(ord(column[i]) + 1)
+        return column
+
+    def increase_column_letter_times(self, column, increase_by):
+        """
+        Increases column (list of letters) by increase_by (int)
+        """
+        i = 0
+
+        while i < increase_by:
+            column = self.increase_column_letter(column)
+            i += 1
+
+        return column
+
+    def combine_coord(self, column, row):
+        """
+        This method combines column (list of chars) with row (string) and
+        returns them in a string.
+        """
+        return ''.join(column) + row
