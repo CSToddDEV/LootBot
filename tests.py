@@ -33,5 +33,32 @@ class MyTestCase(unittest.TestCase):
 
         self.assertEqual(test_dimensions.split_coord('ABC2255'), (['A', 'B', 'C'], '2255'))
 
+    def test_dimensions_3(self):
+        """
+        Test dimensions.py 3 -
+        This test asserts that the function increase_row_number is returning the right number
+        """
+        test_dimensions = dimensions.Dimensions(None)
+
+        self.assertEqual(test_dimensions.increase_row_number('5', 10), '15')
+
+    def test_dimensions_4(self):
+        """
+        Test dimensions.py 4 -
+        This test asserts that the function increase_row_number is returning the right number
+        """
+        test_dimensions = dimensions.Dimensions(None)
+
+        self.assertEqual(test_dimensions.increase_row_number('100', 0), '100')
+
+    def test_dimensions_5(self):
+        """
+        Test dimensions.py 5 -
+        This test asserts that the function increase_row_number is returning the right number
+        """
+        test_dimensions = dimensions.Dimensions(None)
+
+        self.assertEqual(test_dimensions.increase_row_number('69', -4), '65')
+
 if __name__ == '__main__':
     unittest.main()

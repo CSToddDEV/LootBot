@@ -56,3 +56,9 @@ class Dimensions:
 
         return column_letters, row_numbers
 
+    def increase_row_number(self, row_number, to_increase):
+        """
+        This method increases the row_number (string) passed by the
+        to_increase (int) variable and returns the new row number (string)
+        """
+        return str(int(row_number) + to_increase)
