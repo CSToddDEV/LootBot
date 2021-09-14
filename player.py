@@ -27,6 +27,18 @@ class GM:
         self._players_email = char['cells']['players'][1]
         self._players_discord = char['cells']['players'][2]
 
+    def get_name(self):
+        """
+        This method returns the character/GM name
+        """
+        return self._character
+
+    def get_email(self):
+        """
+        This method returns the character/GM email
+        """
+        return self._email
+
 
 class Player(GM):
     """

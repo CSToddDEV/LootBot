@@ -766,6 +766,12 @@ class LootList:
         self.create_players(credentials)
 
         # Modify New LS Dimensions
+        self.add_player_dimensions(credentials)
+
+        # Add info to LS
+
+        # Send to Players and GM
+        self.assign_to_gm(credentials)
 
     def create_players(self, creds):
         """
@@ -823,6 +829,30 @@ class LootList:
         elif template == 'starfinder':
             self.set_player_dict('player_{}'.format(player_num),
                                  StarFinderPlayer(char, creds))
+
+    def assign_to_gm(self, creds):
+        """
+        This method assigns the GM as the owner of the LS
+        """
+        players = self.get_players()
+        gm = players['gm']
+
+        gm_permissions = {
+            'type': 'user',
+            'role': 'owner',
+            'emailAddress': gm.get_email()
+        }
+
+        service = discovery.build('drive', 'v3', credentials=creds)
+        service.permissions().create(fileId=self.get_ls_id(),
+                                     transferOwnership=True,
+                                     body=gm_permissions).execute()
+
+    def add_player_dimensions(self, creds):
+        """
+        This method adds dimensions to the ls for a new player
+        """
+        pass
 
 
 class CreateError(Exception):
