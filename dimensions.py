@@ -106,3 +106,52 @@ class Dimensions:
         returns them in a string.
         """
         return ''.join(column) + row
+
+    def increase_coord(self, coord, inc_column, inc_row):
+        """
+        This method increases the coordinate (coord - string) columns by inc_column (int)
+        and rows by inc_row (int).  Returns string of new coordinate
+        """
+
+        # Split coordinate in to workable parts
+        column, row = self.split_coord(coord)
+
+        # Increase column and rows by requested amount
+        column = self.increase_column_letter_times(column, inc_column)
+        row = self.increase_row_number(row, inc_row)
+
+        # Re-Create coordinate format and return
+        return self.combine_coord(column, row)
+
+    def convert_coord_to_int(self, coord):
+        """
+        This method splits a coordinate in to two different pieces and converts them in to integer
+        representation and returns them in [column (int), row (int)] form
+        """
+        column, row = self.split_coord(coord)
+
+        # Calculate column int
+        column_int = 0
+        i = len(column) - 1
+        power = 0
+
+        while i >= 0:
+            column_int += 26**power * (ord(column[i]) - ord('A') + 1)
+            i -= 1
+            power += 1
+
+        # Adjust column_int for zero-based index
+        column_int -= 1
+
+        return column_int, int(row)
+
+    def move_inventory_end_column(self, num_players):
+        """
+        This method returns the JSON to move the inventory sheet end column
+        to accommodate num_players many more player columns
+        """
+        cut_paste = {
+            "source": {
+
+            }
+        }

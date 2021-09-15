@@ -123,5 +123,77 @@ class MyTestCase(unittest.TestCase):
 
         self.assertEqual(test_dimensions.combine_coord(['A'], '5'), 'A5')
 
+    def test_dimensions_13(self):
+        """
+        Test dimensions.py 13 -
+        This test asserts that the function increase_coord is returning the right coordinate
+        """
+        test_dimensions = dimensions.Dimensions(None)
+
+        self.assertEqual(test_dimensions.increase_coord('A5', 1, 0), 'B5')
+
+    def test_dimensions_14(self):
+        """
+        Test dimensions.py 14 -
+        This test asserts that the function increase_coord is returning the right coordinate
+        """
+        test_dimensions = dimensions.Dimensions(None)
+
+        self.assertEqual(test_dimensions.increase_coord('A5', 0, 1), 'A6')
+
+    def test_dimensions_15(self):
+        """
+        Test dimensions.py 15 -
+        This test asserts that the function increase_coord is returning the right coordinate
+        """
+        test_dimensions = dimensions.Dimensions(None)
+
+        self.assertEqual(test_dimensions.increase_coord('A5', 1, 1), 'B6')
+
+    def test_dimensions_16(self):
+        """
+        Test dimensions.py 16 -
+        This test asserts that the function increase_coord is returning the right coordinate
+        """
+        test_dimensions = dimensions.Dimensions(None)
+
+        self.assertEqual(test_dimensions.increase_coord('A5', 0, 0), 'A5')
+
+    def test_dimensions_17(self):
+        """
+        Test dimensions.py 17 -
+        This test asserts that the function increase_coord is returning the right coordinate
+        """
+        test_dimensions = dimensions.Dimensions(None)
+
+        self.assertEqual(test_dimensions.increase_coord('A5', 100, 100), 'CW105')
+
+    def test_dimensions_18(self):
+        """
+        Test dimensions.py 18 -
+        This test asserts that the function convert_coord_to_int is returning the right integers
+        """
+        test_dimensions = dimensions.Dimensions(None)
+
+        self.assertEqual(test_dimensions.convert_coord_to_int('A5'), (0, 5))
+
+    def test_dimensions_19(self):
+        """
+        Test dimensions.py 19 -
+        This test asserts that the function convert_coord_to_int is returning the right integers
+        """
+        test_dimensions = dimensions.Dimensions(None)
+
+        self.assertEqual(test_dimensions.convert_coord_to_int('BB10'), (53, 10))
+
+    def test_dimensions_20(self):
+        """
+        Test dimensions.py 20 -
+        This test asserts that the function convert_coord_to_int is returning the right integers
+        """
+        test_dimensions = dimensions.Dimensions(None)
+
+        self.assertEqual(test_dimensions.convert_coord_to_int('ABC69'), (730, 69))
+
 if __name__ == '__main__':
     unittest.main()
