@@ -16,29 +16,61 @@ class Dimensions:
         self._ls_id = lootsheet
 
         # Inventory Sheet Dimensions
-        self._end_wall_coords = ['I1', 'I79']
-        self._player_loot_column = ['G6', 'H67']
+        self._end_wall_coords = ['I1', 'J80']
+        self._player_loot_column = ['G6', 'I68']
         self._title_bars = [
-            ['C1', 'H1'],                        # Top Black Bar
-            ['C2', 'H3'],                        # LootSheet Name
-            ['C4', 'H4'],                        # Middle Black Bar
-            ['C5', 'H6']                         # Item Tracking Sheet
+            ['C1', 'I2'],                        # Top Black Bar
+            ['C2', 'I4'],                        # LootSheet Name
+            ['C4', 'I5'],                        # Middle Black Bar
+            ['C5', 'I7']                         # Item Tracking Sheet
         ]
         self._bottom_bars = [
-            ['B68', 'H68'],                      # Top Black Bar
-            ['E69', 'H77'],                      # Middle Black Box
-            ['B78', 'H79']                       # Bottom Black Bar
+            ['B68', 'I69'],                      # Top Black Bar
+            ['E69', 'I78'],                      # Middle Black Box
+            ['B78', 'I80']                       # Bottom Black Bar
         ]
 
         # Players Sheet Dimensions
-        self._player_char_box = ['B22', 'G25']
+        self._player_char_box = ['B22', 'H26']
 
+    # Get Methods
     def get_ls_id(self):
         """
         This method returns the LootSheet ID for the dimensions object
         """
         return self._ls_id
 
+    def get_wall_coords(self):
+        """
+        This method gets the wall coords
+        """
+        return self._end_wall_coords
+
+    def get_wall_coord_indexes(self):
+        """
+        This method returns the coordinate indexes for the wall of the inventory sheet
+        """
+        coords = self.get_wall_coords()
+        start_col_i, start_row_i = self.convert_coord_to_int(coords[0])
+        end_col_i, end_row_i = self.convert_coord_to_int(coords[1])
+
+        return start_col_i, end_col_i, start_row_i, end_row_i
+
+    # Set Methods
+    def set_wall_coords(self, num_players):
+        """
+        This method sets the end wall coordinates based on the number of players being
+        added to the lootsheet, it then returns the indexes for the new wall coords.
+        """
+        coords = self.get_wall_coords()
+
+        self._end_wall_coords[0] = self.increase_coord(coords[0], num_players * 2, 0)
+        self._end_wall_coords[1] = self.increase_coord(coords[1], num_players * 2, 0)
+
+        return self.convert_coord_to_int(self._end_wall_coords[0])
+
+
+    # Dimensions Methods
     def split_coord(self, coord):
         """
         This method splits the coord in to it's alpha (list) and numerical (string) parts
@@ -150,8 +182,28 @@ class Dimensions:
         This method returns the JSON to move the inventory sheet end column
         to accommodate num_players many more player columns
         """
+        ls_id = self.get_ls_id()
+        start_col_i, end_col_i, start_row_i, end_row_i = self.get_wall_coord_indexes()
+        new_col_i, new_row_i = self.set_wall_coords(num_players)
+
         cut_paste = {
             "source": {
-
-            }
+                {
+                    "sheetID": int(ls_id["inventory"]),
+                    "startRowIndex": int(start_row_i),
+                    "endRowIndex": int(end_row_i),
+                    "startColumnIndex": int(start_col_i),
+                    "endColumnIndex": int(end_col_i)
+                }
+            },
+            "destination": {
+                {
+                    "sheetID": int(ls_id["inventory"]),
+                    "rowIndex": int(new_row_i),
+                    "columnIndex": int(new_col_i)
+                }
+            },
+            "pasteType": "PASTE_NORMAL"
         }
+
+        return cut_paste
